@@ -1,4 +1,4 @@
-# JOLOSERVU Minecraft-Piilosta
+# JOLOSERVU_Minecraft-Piilosta
 Potsog:n tekemä/koodaama Minecraft-piilos skripti
 
 Tämä on Potsog:n tekemä plugini.
