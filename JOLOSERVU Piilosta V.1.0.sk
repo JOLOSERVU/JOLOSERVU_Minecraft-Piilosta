@@ -1,0 +1,653 @@
+
+
+
+#Tämä on Potsog:n tekemä plugini.
+#Potsog:n somet: https://solo.to/potsog.
+#Potsog:n Discord-palvelin: https://discord.com/invite/sU7sbzjwXJ.
+#Potsog:n Twitch-kanava: https://m.twitch.tv/potso_gamer.
+#Tämä on käytössä JOLOSERVUlla piiloksessa.
+#JOLOSERVUn somet: https://solo.to/JOLOSERVU mm. Discord-palvelin, YouTube-kanava, Twitch-kanava, Instagram-tili.
+#Tilaa JOLOSERVU YouTubessa https://youtube.com/@JOLOSERVU.
+
+
+#Tarvitset lisäosat Skript, skRayFall, Skellett, Skbee ja Remove Join Leave Messages. Nämä pluginit täytyy pudottaa spigot, paper tai purpur serverin plugins kansioon.
+#Linkit plugineihin:
+#Skript: https://github.com/SkriptLang/Skript/releases
+#skRayFall: https://dev.bukkit.org/projects/skrayfall
+#Skellett: https://github.com/TheLimeGlass/Skellett/releases
+#Skbee: https://github.com/ShaneBeee/SkBee/releases/tag/3.5.3
+#Remove Join Leave Messages: https://www.spigotmc.org/resources/remove-join-leave-messages.4920/
+
+#Tämä tiedosto täytyy pudottaa plugins-kansiossa olevassa Skript-kansiossa olevaan skripts-kansioon
+
+
+command /piilonen:resetpiilosta:
+    permission: op
+    trigger:
+        set {hengissä} to 0
+        make player execute command "/worldborder set 448"
+        set {alue1} to false
+        set {alue2} to false
+        set {alue3} to false
+        set {alue4} to false
+        set {alue5} to false
+        set {alue6} to false
+        set {game} to false
+        delete {PELAAJA::*}
+        delete {ETSIJÄ::*}
+        delete {VOITTO::*}
+        execute console command "minecraft:effect clear @a"
+        execute console command "minecraft:clear @a"
+        execute console command "minecraft:effect give @a minecraft:saturation infinite 255 true"
+        teleport all players to {hub}
+        execute console command "minecraft:gamemode survival @a"
+        send ""
+        send "          {@notifi2}"
+        send ""
+        send "&bPiilonen on nyt resetoitu."
+        send ""
+
+
+
+on player world change:
+    clear player's scoreboard
+
+
+
+on leave:
+    if {PELAAJA::%player%} is true:
+        remove 1 from {hengissä}
+        remove player from {PELAAJA::*}
+        remove player from {VOITTO::*}
+        set {PELAAJA::%player%} to false
+
+
+
+
+
+
+command /piilonen:maailma <text>:
+	permission: op
+	trigger:
+		set {maailma} to "%arg-1%"
+		broadcast ""
+		broadcast "          {@notifi2}"
+		broadcast ""
+		broadcast "&bNykyinen piilos maa on &a%{maailma}%&b."
+		broadcast ""
+		play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to all players
+
+
+
+
+options:
+	start2: &x&1&D&1&1&F&F&lJ&x&2&6&3&9&E&3&lO&x&3&0&6&0&C&6&lL&x&3&9&8&8&A&A&lO&x&4&2&B&0&8&E&lS&x&4&C&D&7&7&1&lE&x&5&5&F&F&5&5&lR&x&4&C&D&7&7&1&lV&x&4&2&B&0&8&E&lU&x&3&9&8&8&A&A&l &x&3&0&6&0&C&6&lP&x&2&6&3&9&E&3&li&x&1&D&1&1&F&F&li&x&2&6&3&9&E&3&ll&x&3&0&6&0&C&6&lo&x&3&9&8&8&A&A&ls&x&4&2&B&0&8&E&lt&x&4&C&D&7&7&1&la&x&5&5&F&F&5&5&l!
+	title: &x&1&D&1&1&F&F&lP&x&2&5&3&3&E&7&li&x&2&D&5&5&C&E&li&x&3&5&7&7&B&6&ll&x&3&D&9&9&9&E&lo&x&4&5&B&B&8&6&ls&x&4&D&D&D&6&D&lt&x&5&5&F&F&5&5&la
+	notifi2: &x&1&D&1&1&F&F&lJ&x&2&7&3&B&E&1&lO&x&3&1&6&5&C&3&lL&x&3&B&8&F&A&5&lO&x&4&5&B&9&8&7&lS&x&4&E&E&3&6&9&lE&x&5&2&F&1&5&F&lR&x&4&8&C&7&7&D&lV&x&3&E&9&D&9&B&lU&x&3&4&7&3&B&9&l &x&2&A&4&9&D&7&lI&x&2&0&1&F&F&5&lL&x&2&4&2&D&E&B&lM&x&2&D&5&7&C&D&lO&x&3&7&8&1&A&F&lI&x&4&1&A&B&9&1&lT&x&4&B&D&5&7&3&lU&x&5&5&F&F&5&5&lS
+	dmnotifi2: &x&1&D&1&1&F&F&lY&x&2&7&3&C&E&1&lK&x&3&1&6&6&C&2&lS&x&3&B&9&1&A&4&lI&x&4&5&B&B&8&6&lT&x&4&F&E&6&6&7&lY&x&5&1&E&E&6&1&lI&x&4&7&C&4&8&0&lN&x&3&D&9&9&9&E&lE&x&3&3&6&E&B&C&lN&x&2&9&4&4&D&B&l &x&1&F&1&9&F&9&lJ&x&2&5&3&3&E&7&lO&x&2&F&5&E&C&8&lL&x&3&9&8&8&A&A&lO&x&4&3&B&3&8&C&lS&x&4&D&D&D&6&D&lE&x&5&3&F&6&5&B&lR&x&4&9&C&C&7&9&lV&x&3&F&A&1&9&8&lU&x&3&5&7&7&B&6&l &x&2&B&4&C&D&5&lI&x&2&1&2&2&F&3&lL&x&2&3&2&B&E&D&lM&x&2&D&5&5&C&E&lO&x&3&7&8&0&B&0&lI&x&4&1&A&A&9&2&lT&x&4&B&D&5&7&3&lU&x&5&5&F&F&5&5&lS
+    
+command /piilonen:setpiilospawn:
+	permission: op
+	trigger:
+		set {spawn2} to location of player
+		broadcast ""
+		broadcast "          {@notifi2}"
+		broadcast ""
+		broadcast "&bAsetit piilos spawnin &a%{spawn2}%&b, nyt joka kerta alotittaessasi jokainen teleporttaa tähän."
+		broadcast ""
+		play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to all players
+
+
+
+    
+command /piilonen:aloita:
+	permission: op
+	trigger:
+		delete {PELAAJA::*}
+		loop all players:
+			add 1 to {hengissä}
+			add loop-player to {PELAAJA::*}
+			add loop-player to {VOITTO::*}
+			set {PELAAJA::%loop-player%} to true
+		execute console command "minecraft:gamemode survival @a"
+		set {game} to true
+		send title "{@start2}" with subtitle "&bEtsijänä &a%{ETSIJÄ::*}%" to all players for 3 seconds
+		broadcast ""
+		broadcast "          {@start2}"
+		broadcast ""
+		broadcast "&bEtsijänä &a%{ETSIJÄ::*}%&b."
+		broadcast ""
+		play sound "entity.generic.explode" with volume 30 and pitch 1 to all players
+		wait 5 seconds
+		send title "&b&l3" to all players
+		broadcast "&b&l3"
+		play sound "minecraft:block.note_block.pling" with volume 10 and pitch 1.1 to all players
+		wait 1 seconds
+		send title "&b&l2" to all players
+		broadcast "&b&l2"
+		play sound "minecraft:block.note_block.pling" with volume 10 and pitch 1.2 to all players
+		wait 1 seconds
+		send title "&b&l1" to all players
+		broadcast "&b&l1"
+		play sound "minecraft:block.note_block.pling" with volume 10 and pitch 1.3 to all players
+		wait 1 seconds
+		send title "&b&lLähde piiloon!" to all players
+		broadcast "&b&lLähde piiloon!"
+		play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to all players
+		wait 0.05 seconds
+		play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to all players
+		wait 0.05 seconds
+		play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to all players
+		wait 0.05 seconds
+		play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to all players
+		wait 0.1 seconds
+		give 4 of ender pearl named "&5&lPearli" to all players
+		apply slowness 255 without any particles to {ETSIJÄ::*} for 60 seconds
+		apply darkness 255 without any particles to {ETSIJÄ::*} for 60 seconds
+		remove 1 from {hengissä}
+		remove {ETSIJÄ::*} from {PELAAJA::*}
+		remove {ETSIJÄ::*} from {VOITTO::*}
+		teleport all players to {spawn2}
+		wait 55 seconds
+		send title "&b&l5" to all players
+		broadcast "&b&l5"
+		play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to all players
+		wait 1 seconds
+		send title "&b&l4" to all players
+		broadcast "&b&l4"
+		play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to all players
+		wait 1 seconds
+		send title "&b&l3" to all players
+		broadcast "&b&l3"
+		play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to all players
+		wait 1 seconds
+		send title "&b&l2" to all players
+		broadcast "&b&l2"
+		play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to all players
+		wait 1 seconds
+		send title "&b&l1" to all players
+		broadcast "&b&l1"
+		play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to all players
+		wait 1 seconds
+		execute console command "minecraft:effect give {ETSIJÄ::*} minecraft:speed infinite 1 true"
+		send title "&a&l%{ETSIJÄ::*}%" with subtitle "&b&lLähtee liikkeelle!" to all players
+		broadcast "&a&l%{ETSIJÄ::*}% &b&llähtee liikkeelle!"
+		play sound "entity.generic.explode" with volume 30 and pitch 1.9 to all players
+		
+
+		
+on right click:
+	if player's tool is bell:
+		if name of the player's tool is "&b&lPienennä aluetta":
+			cancel event
+			if {alue1} is false:
+				broadcast ""
+				broadcast "          {@notifi2}"
+				broadcast ""
+				broadcast "&a%{ETSIJÄ::*}% &bpienensi aluetta!"
+				broadcast ""
+				broadcast "&bAlue liikkuuu &a2 &bminuutin ajan."
+				broadcast ""
+				execute console command "worldborder set 350 120"
+				play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to all players
+				set {alue1} to true
+			else if {alue2} is false:
+				broadcast ""
+				broadcast "          {@notifi2}"
+				broadcast ""
+				broadcast "&a%{ETSIJÄ::*}% &bpienensi aluetta!"
+				broadcast ""
+				broadcast "&bAlue liikkuuu &a2 &bminuutin ajan."
+				broadcast ""
+				execute console command "worldborder set 280 120"
+				play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to all players
+				set {alue2} to true
+			else if {alue3} is false:
+				broadcast ""
+				broadcast "          {@notifi2}"
+				broadcast ""
+				broadcast "&a%{ETSIJÄ::*}% &bpienensi aluetta!"
+				broadcast ""
+				broadcast "&bAlue liikkuuu &a2 &bminuutin ajan."
+				broadcast ""
+				execute console command "worldborder set 210 120"
+				play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to all players
+				set {alue3} to true
+			else if {alue4} is false:
+				broadcast ""
+				broadcast "          {@notifi2}"
+				broadcast ""
+				broadcast "&a%{ETSIJÄ::*}% &bpienensi aluetta!"
+				broadcast ""
+				broadcast "&bAlue liikkuuu &a2 &bminuutin ajan."
+				broadcast ""
+				execute console command "worldborder set 180 120"
+				play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to all players
+				set {alue4} to true
+			else if {alue5} is false:
+				broadcast ""
+				broadcast "          {@notifi2}"
+				broadcast ""
+				broadcast "&a%{ETSIJÄ::*}% &bpienensi aluetta!"
+				broadcast ""
+				broadcast "&bAlue liikkuuu &a2 &bminuutin ajan."
+				broadcast ""
+				execute console command "worldborder set 120 120"
+				play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to all players
+				set {alue5} to true
+			else if {alue6} is false:
+				broadcast ""
+				broadcast "          {@notifi2}"
+				broadcast ""
+				broadcast "&a%{ETSIJÄ::*}% &bpienensi aluetta!"
+				broadcast ""
+				broadcast "&bAlue liikkuuu &a2 &bminuutin ajan."
+				broadcast ""
+				execute console command "worldborder set 75 120"
+				play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to all players
+				set {alue6} to true
+
+
+
+on right click:
+	if player's tool is rabbit foot:
+		if name of the player's tool is "&a&lLoikka 3x":
+			push player upwards with speed 2
+			play sound "block.amethyst.block.break" with volume 30 and pitch 1 to player
+
+
+on right click:
+	if player's tool is rabbit foot:
+		if name of the player's tool is "&c&lLoikka 5x":
+			push player upwards with speed 4
+			play sound "block.amethyst.block.break" with volume 30 and pitch 1 to player
+
+
+command /piilonen:arpa <number>:
+	permission: op
+	trigger:
+		give arg-1 of paper named "&a&lArpa" to all players
+		send "&bAnnoit &a%arg-1% &barpaa kaikille pelaajille!"
+		broadcast ""
+		broadcast "          {@notifi2}"
+		broadcast ""
+		broadcast "&a%player% &bantoi kaikille pelaajille &a%arg-1% &barpa(a)!"
+		broadcast ""
+		play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to all players
+        
+on right click:
+	if player's tool is paper:
+		if name of the player's tool is "&a&lArpa":
+			chance of 25%:
+				apply slowness 2 without any particles to {ETSIJÄ::*} for 15 seconds
+				broadcast ""
+				broadcast "             {@notifi2}"
+				broadcast ""
+				broadcast "&a%player% &bavasi etsijälle slownessin!"
+				broadcast ""				
+				play sound "entity.generic.explode" with volume 30 and pitch 1 to all players
+				remove 1 paper from player
+				stop
+			chance of 25%:
+				apply speed 2 without any particles to player for 10 seconds
+				send "" to player
+				send "          {@dmnotifi2}" to player
+				send "" to player
+				send "&bSait speedin!" to player
+				send "" to player
+				play sound "entity.generic.explode" with volume 30 and pitch 1 to player
+				remove 1 paper from player
+				stop
+			chance of 25%:
+				give player 4 ender pearl named "&5&lPearli"
+				send "" to player
+				send "          {@dmnotifi2}" to player
+				send "" to player
+				send "&bSait &a4 &bender pearlia!" to player
+				send "" to player
+				play sound "entity.generic.explode" with volume 30 and pitch 1 to player
+				remove 1 paper from player
+				stop
+			chance of 25%:
+				apply slowness 2 without any particles to player for 30 seconds
+				send "" to player
+				send "          {@dmnotifi2}" to player
+				send "" to player
+				send "&bSait slownessin!" to player
+				send "" to player
+				play sound "entity.generic.explode" with volume 30 and pitch 1 to player
+				remove 1 paper from player
+				stop
+			chance of 25%:
+				apply glowing 2 without any particles to all players for 30 seconds
+				broadcast ""
+				broadcast "                {@notifi2}"
+				broadcast ""
+				broadcast "&a%player% &bavasi jokaiselle pelaajalle glowingin!"
+				broadcast ""
+				play sound "entity.generic.explode" with volume 30 and pitch 1 to all players
+				remove 1 paper from player
+				stop
+			chance of 25%:
+				apply darkness 2 without any particles to all players for 30 seconds
+				broadcast ""
+				broadcast "                  {@notifi2}"
+				broadcast ""
+				broadcast "&a%player% &bavasi jokaiselle pelaajalle darknessin!"
+				broadcast ""
+				play sound "entity.generic.explode" with volume 30 and pitch 1 to all players
+				remove 1 paper from player
+				stop
+			chance of 25%:
+				apply invisibility without any particles to player for 20 seconds
+				send "" to player
+				send "          {@dmnotifi2}" to player
+				send "" to player
+				send "&bSait näkymättömyyden!" to player
+				send "" to player
+				play sound "entity.generic.explode" with volume 30 and pitch 1 to player
+				remove 1 paper from player
+				stop
+
+
+on right click:
+	if player's tool is glowstone dust:
+		if name of the player's tool is "&e&lHehku":
+			apply glowing 255 without any particles to all players for 2 seconds
+			broadcast ""
+			broadcast "                {@notifi2}"
+			broadcast ""
+			broadcast "&bJokaisella pelaajalla on nyt 2 sekunnin glowing!"
+			broadcast ""
+			play sound "entity.generic.explode" with volume 30 and pitch 1 to all players
+
+
+
+command /piilonen:etsijä <player>:
+	permission: op
+	trigger:
+		delete {ETSIJÄ::*}
+		add arg-1 to {ETSIJÄ::*}
+		broadcast ""
+		broadcast "                  {@notifi2}"
+		broadcast ""
+		broadcast "&a%arg-1% &bon nyt etsijä!"
+		broadcast ""
+		send title "&a%arg-1%" with subtitle "&bOn nyt etsijä!"
+		give arg-1 unbreakable diamond sword named "&d&lKuollettava ase"
+		give arg-1 rabbit foot named "&a&lLoikka 3x"
+		give arg-1 rabbit foot named "&c&lLoikka 5x"
+		give arg-1 glowstone dust named "&e&lHehku"
+		give arg-1 bell named "&b&lPienennä aluetta"
+		play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to all players
+
+        
+on damage:
+	if world is "%{maailma}%":
+		if attacker is a player:
+			if attacker is not {ETSIJÄ::*}:
+				cancel event
+			else:
+				remove victim from {PELAAJA::*}
+				set {PELAAJA::%victim%} to false
+				remove 1 from {hengissä}
+				broadcast ""
+				broadcast "                  {@notifi2}"
+				broadcast ""
+				broadcast "&a%{ETSIJÄ::*}% &blöysi pelaajan &a%victim%&b!"
+				broadcast ""
+				kill victim
+				remove victim from {VOITTO::*}
+				stop
+            
+                
+on death:
+	wait 2 seconds
+	if {PELAAJA::%victim%} is true:
+		broadcast "&6%victim% &cKuoli"
+		remove victim from {PELAAJA::*}
+		remove victim from {VOITTO::*}
+		remove 1 from {hengissä}
+		set {PELAAJA::%victim%} to false
+	wait 0.5 seconds
+	execute console command "minecraft:effect give %victim% minecraft:saturation infinite 255 true"
+	execute console command "minecraft:gamemode spectator %victim%"
+
+
+
+
+            
+on respawn:
+	execute console command "minecraft:effect give %player% minecraft:saturation infinite 255 true"
+	execute console command "minecraft:gamemode spectator %player%"
+	if player is in world "%{maailma}%":
+		execute console command "minecraft:effect give %player% minecraft:saturation infinite 255 true"
+		execute console command "minecraft:gamemode spectator %player%"
+		teleport player to {spawn2}
+        
+        
+on player world change:
+	if player is in world "%{maailma}%":
+		teleport player to {hub}
+		set title of player's scoreboard to "{@title}"
+		set line 15 of player's scoreboard to ""
+		set line 14 of player's scoreboard to "<##3158ff>&l» &b&lEtsijä: &a%{ETSIJÄ::*}%"
+		set line 13 of player's scoreboard to ""
+		set line 12 of player's scoreboard to "<##3158ff>&l» &b&lPelaajia hengissä: &a%{hengissä}%"
+		set line 11 of player's scoreboard to ""
+		set line 10 of player's scoreboard to "<##3158ff>&l» &b&lIP: &afi-f1.axsoter.com:20181"
+		set line 9 of player's scoreboard to ""
+		set line 8 of player's scoreboard to "<##3158ff>&l» &b&lPelaajia paikalla: &a%amount of all players%"
+		set line 7 of player's scoreboard to ""
+		set line 6 of player's scoreboard to "<##3158ff>&l» &b&lPelaaja: &a%player%"
+		wait 1 tick
+		while player is online:
+			set title of player's scoreboard to "{@title}"
+			set line 15 of player's scoreboard to ""
+			set line 14 of player's scoreboard to "<##3158ff>&l» &b&lEtsijä: &a%{ETSIJÄ::*}%"
+			set line 13 of player's scoreboard to ""
+			set line 12 of player's scoreboard to "<##3158ff>&l» &b&lPelaajia hengissä: &a%{hengissä}%"
+			set line 11 of player's scoreboard to ""
+			set line 10 of player's scoreboard to "<##3158ff>&l» &b&lIP: &afi-f1.axsoter.com:20181"
+			set line 9 of player's scoreboard to ""
+			set line 8 of player's scoreboard to "<##3158ff>&l» &b&lPelaajia paikalla: &a%amount of all players%"
+			set line 7 of player's scoreboard to ""
+			set line 6 of player's scoreboard to "<##3158ff>&l» &b&lPelaaja: &a%player%"
+			wait 1 tick
+	else:
+		while player is online:
+			if {PELAAJA::%player%} is true:
+				remove 1 from {hengissä}
+				remove player from {PELAAJA::*}
+				remove player from {VOITTO::*}
+				set {PELAAJA::%player%} to false
+				wait 1 tick
+
+
+    
+every 1 seconds:
+	if {game} is true:
+		if {hengissä} is 1:
+			set {game} to false
+			send title "&b&lVoittajat:" with subtitle "&a%{VOITTO::*}%&b&l!" to all players for 3 seconds
+			broadcast "&b&lVoittajat:"
+			broadcast "&a%{VOITTO::*}%&b&l!"
+			play sound "ui.toast.challenge_complete" with volume 30 and pitch 1 to all players
+			loop all players:
+				set loop-player's gamemode to survival
+				teleport loop-player to {spawn2}
+			loop {PELAAJA::*}:
+				set {PELAAJA::*}'s gamemode to survival
+			wait 5 seconds
+			send title "&b&lKoodaajat:" with subtitle "&aPotsog" to all players for 3 seconds
+			broadcast "&b&lKoodaajat:"
+			broadcast "&aPotsog"
+			wait 3 seconds
+			send title "&b&lKiitos pelaamisesta!" with subtitle "&eyoutube.com/@JOLOSERVU" to all players for 3 seconds
+			broadcast "&b&lKiitos pelaamisesta!"
+			broadcast "<link:https://youtube.com/@JOLOSERVU>&eyoutube.com/@JOLOSERVU<reset>"
+			wait 3 seconds
+			broadcast ""
+			broadcast "                  {@notifi2}"
+			broadcast ""
+			broadcast "                  &x&1&D&1&1&F&F&lJ&x&2&1&2&0&F&4&lO&x&2&4&2&F&E&A&lL&x&2&8&3&E&D&F&lO&x&2&B&4&D&D&5&lS&x&2&F&5&B&C&A&lE&x&3&2&6&A&B&F&lR&x&3&6&7&9&B&5&lV&x&3&9&8&8&A&A&lU&x&3&D&9&7&9&F&ln&x&4&0&A&6&9&5&l &x&4&4&B&5&8&A&lm&x&4&7&C&4&8&0&le&x&4&B&D&2&7&5&ld&x&4&E&E&1&6&A&li&x&5&2&F&0&6&0&la&x&5&5&F&F&5&5&lt"
+			broadcast ""
+			broadcast "<link:https://youtube.com/@JOLOSERVU>&c&lYou&f&lTube<reset>   <link:https://discord.gg/EhMFPVxFzs>&9&lDiscord<reset>   <link:https://twitch.tv/joloservu>&5&lTwitch<reset>   <link:https://instagram.com/joloservu/>&d&lInstagram<reset>   <link:https://solo.to/joloservu>&b&lKaikki somet<reset>"
+			broadcast ""
+			play sound "entity.generic.explode" with volume 30 and pitch 1 to all players
+			wait 2 seconds
+			teleport all players to {hub}
+			execute console command "minecraft:gamemode survival @a"
+			execute console command "minecraft:effect give @a minecraft:saturation infinite 255 true"
+			execute console command "minecraft:clear @a"
+			play sound "entity.experience.bottle.throw" with volume 30 and pitch 1 to all players
+
+
+
+
+command /piilonen:revive <player>:
+	permission: op
+	trigger:
+		set arg-1's gamemode to survival
+		teleport arg-1 to {spawn2}
+		broadcast ""
+		broadcast "          {@notifi2}"
+		broadcast ""
+		broadcast "&a%arg-1% &bSynnytettiin uudelleen!"
+		broadcast ""
+		send title "&a%arg-1%" with subtitle "&bSynnytettiin uudelleen!" to all players
+		add 1 to {hengissä}
+		add arg-1 to {PELAAJA::*}
+		add arg-1 to {VOITTO::*}
+		set {PELAAJA::%arg-1%} to true
+		play sound "entity.generic.explode" with volume 30 and pitch 1 to all players
+
+
+
+
+command /piilonen:elossa:
+	trigger:
+		send "" to player
+		send "          {@dmnotifi2}" to player
+		send "" to player
+		send "&a%{VOITTO::*}% &bhenkilöä elossa!" to player
+		send "" to player
+		play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to player
+
+
+
+
+command /piilonen:poista <player>:
+	permission: op
+	trigger:
+		set arg-1's gamemode to spectator
+		broadcast ""
+		broadcast "          {@notifi2}"
+		broadcast ""
+		broadcast "&a%arg-1% &bPoistettiin pelistä!"
+		broadcast ""
+		send title "&a%arg-1%" with subtitle "&bPoistettiin pelistä!"
+		remove arg-1 from {PELAAJA::*}
+		remove arg-1 from {VOITTO::*}
+		remove 1 from {hengissä}
+		set {PELAAJA::%arg-1%} to false
+		play sound "entity.generic.explode" with volume 30 and pitch 1 to all players
+
+
+command /piilonen:setjoinpoint:
+	permission: op
+	trigger:
+		set {_pitch} to player's pitch
+		set {_yaw} to player's yaw
+		set {hub} to location at player
+		set {hub}'s pitch to {_pitch}
+		set {hub}'s yaw to {_yaw}
+		send "" to player
+		send "          {@dmnotifi2}" to player
+		send "" to player
+		send "&bAsetit servulle liittymispaikan kohteeseen &a%{hub}%" to player
+		send "" to player
+		play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to player
+
+
+command /piilonen:tutorial-video:
+	permission: op
+	trigger:
+		send "" to player
+		send "         {@dmnotifi2}" to player
+		send "" to player
+		send "<link:https://youtube.com/@JOLOSERVU>&bLinkki JOLOSERVUn piilos pluginin tutoriaali videoon.<reset>" to player
+		send "" to player
+		play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to player
+
+
+command /piilonen:command-help:
+	permission: op
+	trigger:
+		send "&b&lJOLOSERVUn piilos pluginin komennot"
+		play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to player
+
+
+on join:
+	execute console command "minecraft:effect give %player% minecraft:saturation infinite 255 true"
+	execute console command "minecraft:clear %player%"
+	teleport player to {hub}
+	broadcast "&8[&a+&8] &d%player%"
+	send "&x&1&D&1&1&F&F&lT&x&2&6&3&7&E&4&le&x&2&F&5&E&C&8&lr&x&3&8&8&4&A&D&lv&x&4&1&A&B&9&1&le&x&4&A&D&1&7&6&lt&x&5&3&F&7&5&A&lu&x&4&E&E&0&6&B&ll&x&4&5&B&A&8&6&lo&x&3&C&9&4&A&2&la&x&3&3&6&D&B&D&l &x&2&A&4&7&D&9&lJ&x&2&1&2&0&F&4&lO&x&2&2&2&8&E&F&lL&x&2&B&4&E&D&3&lO&x&3&4&7&5&B&8&lS&x&3&E&9&B&9&C&lE&x&4&7&C&2&8&1&lR&x&5&0&E&8&6&5&lV&x&5&1&F&0&6&0&lU&x&4&8&C&9&7&B&ln&x&3&F&A&3&9&7&l &x&3&6&7&C&B&2&lp&x&2&D&5&6&C&E&li&x&2&4&3&0&E&9&li&x&1&F&1&9&F&A&ll&x&2&8&3&F&D&E&lo&x&3&1&6&5&C&3&lk&x&3&A&8&C&A&7&ls&x&4&3&B&2&8&C&le&x&4&C&D&9&7&0&le&x&5&5&F&F&5&5&ln &9&l%player%!" to player
+	send "&bPiilonen alkaa, kun ylläpito saapuu paikalle." to player
+	send "&bTulossa: Piilonen alkaa automaattisesti, kun tietty määrä pelaajia saapuu paikalle."
+	play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to player
+	if player is in world "%{maailma}%":
+		teleport player to {hub}
+		set title of player's scoreboard to "{@title}"
+		set line 15 of player's scoreboard to ""
+		set line 14 of player's scoreboard to "<##3158ff>&l» &b&lEtsijä: &a%{ETSIJÄ::*}%"
+		set line 13 of player's scoreboard to ""
+		set line 12 of player's scoreboard to "<##3158ff>&l» &b&lPelaajia hengissä: &a%{hengissä}%"
+		set line 11 of player's scoreboard to ""
+		set line 10 of player's scoreboard to "<##3158ff>&l» &b&lIP: &afi-f1.axsoter.com:20181"
+		set line 9 of player's scoreboard to ""
+		set line 8 of player's scoreboard to "<##3158ff>&l» &b&lPelaajia paikalla: &a%amount of all players%"
+		set line 7 of player's scoreboard to ""
+		set line 6 of player's scoreboard to "<##3158ff>&l» &b&lPelaaja: &a%player%"
+		wait 1 tick
+		while player is online:
+			set title of player's scoreboard to "{@title}"
+			set line 15 of player's scoreboard to ""
+			set line 14 of player's scoreboard to "<##3158ff>&l» &b&lEtsijä: &a%{ETSIJÄ::*}%"
+			set line 13 of player's scoreboard to ""
+			set line 12 of player's scoreboard to "<##3158ff>&l» &b&lPelaajia hengissä: &a%{hengissä}%"
+			set line 11 of player's scoreboard to ""
+			set line 10 of player's scoreboard to "<##3158ff>&l» &b&lIP: &afi-f1.axsoter.com:20181"
+			set line 9 of player's scoreboard to ""
+			set line 8 of player's scoreboard to "<##3158ff>&l» &b&lPelaajia paikalla: &a%amount of all players%"
+			set line 7 of player's scoreboard to ""
+			set line 6 of player's scoreboard to "<##3158ff>&l» &b&lPelaaja: &a%player%"
+			wait 1 tick
+
+
+on drop:
+	cancel event
+
+
+
+
+on leave:
+	broadcast "&8[&c-&8] &d%player%"
+	execute console command "minecraft:effect clear %player%"
+	
+
+command /piilonen:spawni:
+	permission: op
+	trigger:
+		teleport player to {hub}
+		play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to player
+
+
+command /piilonen:start_spawni:
+	permission: op
+	trigger:
+		teleport player to {spawn2}
+		play sound "minecraft:block.note_block.pling" with volume 30 and pitch 1.9 to player
+
+
