@@ -17,12 +17,20 @@ Tilaa JOLOSERVU YouTubessa https://youtube.com/@JOLOSERVU.
 
 
 
+
 Tarvitset lisäosat Skript, skRayFall, Skellett, Skbee ja Remove Join Leave Messages. Nämä pluginit täytyy pudottaa spigot, paper tai purpur serverin plugins kansioon.
+
 Linkit plugineihin:
+
 Skript: https://github.com/SkriptLang/Skript/releases
+
 skRayFall: https://dev.bukkit.org/projects/skrayfall
+
 Skellett: https://github.com/TheLimeGlass/Skellett/releases
+
 Skbee: https://github.com/ShaneBeee/SkBee/releases/tag/3.5.3
+
 Remove Join Leave Messages: https://www.spigotmc.org/resources/remove-join-leave-messages.4920/
+
 
 Tämä tiedosto täytyy pudottaa plugins-kansiossa olevassa Skript-kansiossa olevaan skripts-kansioon
