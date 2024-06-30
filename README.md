@@ -1,5 +1,5 @@
 # Minecraft-Piilosta
-Suomalainen Potsog:n koodaama Minecraft-piilos skripti
+Potsog:n tekemä/koodaama Minecraft-piilos skripti
 
 Tämä on Potsog:n tekemä plugini.
 
@@ -36,3 +36,6 @@ Remove Join Leave Messages: https://www.spigotmc.org/resources/remove-join-leave
 
 
 Tämä tiedosto täytyy pudottaa plugins-kansiossa olevassa Skript-kansiossa olevaan skripts-kansioon
+
+
+Jos tarvitset apua tämän koodin käyttöönoton kanssa ota Potso_gamerille Discordissa.
