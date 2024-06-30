@@ -2,12 +2,19 @@
 Suomalainen Potsog:n koodaama Minecraft-piilos skripti
 
 Tämä on Potsog:n tekemä plugini.
+
 Potsog:n somet: https://solo.to/potsog.
+
 Potsog:n Discord-palvelin: https://discord.com/invite/sU7sbzjwXJ.
+
 Potsog:n Twitch-kanava: https://m.twitch.tv/potso_gamer.
+
 Tämä on käytössä JOLOSERVUlla piiloksessa.
-JOLOSERVUn somet: https://solo.to/JOLOSERVU mm. Discord-palvelin, YouTube-kanava, Twitch-kanava, Instagram-tili
+
+JOLOSERVUn somet: https://solo.to/JOLOSERVU mm. Discord-palvelin, YouTube-kanava, Twitch-kanava, Instagram-tili.
+
 Tilaa JOLOSERVU YouTubessa https://youtube.com/@JOLOSERVU.
+
 
 
 Tarvitset lisäosat Skript, skRayFall, Skellett, Skbee ja Remove Join Leave Messages. Nämä pluginit täytyy pudottaa spigot, paper tai purpur serverin plugins kansioon.
